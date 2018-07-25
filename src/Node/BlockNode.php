@@ -7,12 +7,12 @@ define('DISABLE_PLAIN_TEXT', ["\\*", "\\fonttbl", "\\colortbl", "\\datastore", "
 
 // '{' ~ '}'
 class BlockNode implements Node {
-  private $children;
+  private $childNodes;
 
-  public function __construct(array $children) {
-    $this->children = $children;
+  public function __construct(array $childNodes) {
+    $this->childNodes = $childNodes;
     $this->show_text = true;
-    foreach ($children as $child) {
+    foreach ($childNodes as $child) {
       if (in_array($child->name(), DISABLE_PLAIN_TEXT)) {
         $this->show_text = false;
       }
@@ -28,7 +28,7 @@ class BlockNode implements Node {
       return '';
     }
     $text = '';
-    foreach ($this->children as $child) {
+    foreach ($this->childNodes as $child) {
       $text .= $child->text();
     }
     return $text;

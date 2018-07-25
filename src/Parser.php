@@ -71,8 +71,8 @@ class Parser {
         break;
 
       case "{":    // begin block
-        $children = $this->parseOptimize();
-        $nodes[] = new Node\BlockNode($children);
+        $childNodes = $this->parseOptimize();
+        $nodes[] = new Node\BlockNode($childNodes);
         break;
 
       case "}":    // end block
