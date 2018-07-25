@@ -36,7 +36,7 @@ class Parser {
   }
 
   // Concat one or more CharNode to TextNode
-  public function parseOptimize() {
+  private function parseOptimize() {
     $nodes = [];
     $hex = '';
     foreach ($this->doParse() as $node) {
