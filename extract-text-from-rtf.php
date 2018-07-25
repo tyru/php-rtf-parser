@@ -8,7 +8,7 @@ require_once 'src/Node/CtrlWordNode.php';
 require_once 'src/Node/ParNode.php';
 require_once 'src/Node/TextNode.php';
 
-function extractText($filename, $config) {
+function extractText(string $filename, array $config) {
   // Read the data from the input file.
   $text = file_get_contents($filename);
   if (empty($text))
@@ -43,7 +43,7 @@ function getConfig() {
   ];
 }
 
-function parseArgs($argv) {
+function parseArgs(array $argv) {
   $opts = getopt('i:o:f:', []);
   if (!isset($opts['f']) || !is_string($opts['f'])) {
     return [$argv[0], null, []];
@@ -58,7 +58,7 @@ function parseArgs($argv) {
   return [$argv[0], $opts['f'], $config];
 }
 
-function main($argv) {
+function main(array $argv) {
   list($script, $filename, $config) = parseArgs($argv);
   if (is_null($filename)) {
     echo "Usage: $script [-i <input encoding>] [-o <output encoding>] -f <file.rtf>\n";
