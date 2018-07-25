@@ -53,7 +53,7 @@ function parseArgs(array $argv) {
     $config['input_encoding'] = $opts['i'];
   }
   if (isset($opts['o']) && is_string($opts['o'])) {
-    $config['output_encoding'] = $opts['i'];
+    $config['output_encoding'] = $opts['o'];
   }
   return [$argv[0], $opts['f'], $config];
 }
