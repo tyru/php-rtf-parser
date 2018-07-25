@@ -44,10 +44,17 @@ function getConfig() {
       'output_encoding' => 'cp932',
     ];
   }
-  // FIXME: What input/output encoding is better? :(
+  // Detect encoding from LANG environment variable
+  $lang = getenv('LANG');
+  $matches = null;
+  if (is_string($lang) && preg_match('/\.(.+)$/', $lang, $matches)) {
+    $out = $matches[1];
+  } else {
+    $out = 'utf-8';
+  }
   return [
     'input_encoding' => 'guess',
-    'output_encoding' => 'utf-8',
+    'output_encoding' => $out,
   ];
 }
 
