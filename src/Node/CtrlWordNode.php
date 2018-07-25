@@ -30,4 +30,8 @@ class CtrlWordNode implements Node {
   public function text() {
     return '';
   }
+
+  public function param() {
+    return $this->param;
+  }
 }
