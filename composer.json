@@ -1,0 +1,18 @@
+{
+    "name": "tyru/php-rtf-parser",
+    "description": "PHP Rich Text Format Parser",
+    "type": "library",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "tyru",
+            "email": "tyru.exe@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-0": {
+            "RtfParser\\": "src/"
+        }
+    }
+}
