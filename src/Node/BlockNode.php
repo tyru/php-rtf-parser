@@ -33,4 +33,8 @@ class BlockNode implements Node {
     }
     return $text;
   }
+
+  public function childNodes() {
+    return $this->childNodes;
+  }
 }
