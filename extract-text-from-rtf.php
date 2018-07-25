@@ -1,6 +1,7 @@
 <?php
 require_once 'src/Scanner.php';
 require_once 'src/Parser.php';
+require_once 'src/Document.php';
 require_once 'src/Node/Node.php';
 require_once 'src/Node/BlockNode.php';
 require_once 'src/Node/CharNode.php';
@@ -17,10 +18,17 @@ function extractText(string $filename, array $config) {
   $scanner = new RtfParser\Scanner($text);
   $parser = new RtfParser\Parser($scanner);
   $text = '';
-  foreach ($parser->parse() as $node) {
+  $doc = $parser->parse();
+  foreach ($doc->childNodes() as $node) {
     $text .= $node->text();
   }
 
+  if ($config['input_encoding'] === 'guess') {
+    $config['input_encoding'] = $doc->getEncoding();
+    if (is_null($config['input_encoding'])) {
+      $config['input_encoding'] = 'utf-8';
+    }
+  }
   if ($config['input_encoding'] !== $config['output_encoding']) {
     $text = mb_convert_encoding($text, $config['output_encoding'], $config['input_encoding']);
   }
@@ -28,17 +36,17 @@ function extractText(string $filename, array $config) {
 }
 
 function getConfig() {
-  $windows = preg_match('/^Windows/', php_uname('s'));
-  if ($windows) {
-    // TODO: Get current code page. This is default code page of Japanese version.
+  if (preg_match('/^Windows/', php_uname('s'))) {
+    // TODO: Get current code page of output_encoding.
+    // 'cp932' is default code page of Japanese version.
     return [
-      'input_encoding' => 'cp932',
+      'input_encoding' => 'guess',
       'output_encoding' => 'cp932',
     ];
   }
-  // FIXME: what input/output encoding is better? :(
+  // FIXME: What input/output encoding is better? :(
   return [
-    'input_encoding' => 'cp932',
+    'input_encoding' => 'guess',
     'output_encoding' => 'utf-8',
   ];
 }

@@ -32,7 +32,7 @@ class Parser {
   public function parse() {
     $nodes = $this->parseOptimize();
     $this->scanner->reset();
-    return $nodes;
+    return new Document($nodes);
   }
 
   // Concat one or more CharNode to TextNode
